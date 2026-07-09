@@ -13,7 +13,7 @@
 - Next.js 16.2.10 (App Router, Turbopack), React 19, JavaScript(TS 아님), CSS Modules (Tailwind 안 씀)
 - DB 없음, 백엔드 없음 — 전부 정적 데이터 + 정적 생성(SSG), Vercel 무료 배포 전제
 - 위치: `C:\Users\aoddl\IdeaProjects\mbti-er`
-- git 로컬 저장소만 있고 원격 없음 (GitHub 연동은 이 세션에서 인증 실패로 아직 push 못함 — 새 세션에서 재시도 필요)
+- GitHub 원격 연결됨: https://github.com/288888wjdaud-sketch/MBTI_er (private), default 브랜치 `master`
 
 ## 페이지 구조
 | 경로 | 내용 |
@@ -54,17 +54,47 @@
 - 디자인 시스템/컴포넌트 라이브러리 없음 — 지금까지는 기능 검증 위주로 최소한의 스타일만 입힘
 - 이 부분이 아마 기획/디자인 담당 세션이 가장 크게 손댈 영역
 
+## 진행 방식 (2026-07-09 추가)
+- 기획/디자인/검토는 클로드 챗이 담당, 개발은 클로드 코드(이 세션들)가 담당하는 분업 구조로 전환.
+- `Spec.md`(클로드 챗이 작성, 저장소에 커밋)가 "다음에 뭘 만들어야 하는가"를 담고, 이 `PROJECT_STATUS.md`는
+  "지금 뭐가 되어 있는가"를 담는 역할로 분리. 새 세션은 두 문서를 함께 읽고 시작할 것.
+- 일정 전제: 주말에만 작업, 총 1개월 예상. 주차별 계획은 `Spec.md` 0번 섹션 참고.
+
+## GitHub / 배포 인프라 현황 (1주차, 2026-07-09)
+- 저장소: https://github.com/288888wjdaud-sketch/MBTI_er (private), default 브랜치는 `master`로 통일 완료
+  (자동 생성된 빈 `main` 브랜치는 삭제함).
+- Vercel 배포는 아직 연결 안 함 — 사용자가 직접 아래 순서로 진행 필요:
+  1. https://vercel.com 가입/로그인 (GitHub 계정으로 로그인 권장)
+  2. "Add New... > Project" → GitHub 저장소 `288888wjdaud-sketch/MBTI_er` import
+  3. Framework Preset은 Next.js 자동 감지됨, 빌드 설정 기본값 그대로 두면 됨
+  4. Environment Variables에 `NEXT_PUBLIC_SITE_URL`(배포 후 발급되는 `https://*.vercel.app` 주소, 나중에 커스텀
+     도메인 연결 시 그걸로 교체), `NEXT_PUBLIC_GA_MEASUREMENT_ID`(GA4 측정 ID, 발급 후) 등록
+  5. Deploy 클릭 → 이후로는 `master`에 push할 때마다 Production 배포, 다른 브랜치/PR은 Preview URL 자동 생성
+- `NEXT_PUBLIC_SITE_URL`: `sitemap.js`/`robots.js`가 이미 이 환경변수를 참조하도록 되어 있었음(기존 코드 확인함).
+  `.env.example` 추가, `.gitignore`에 `!.env.example` 예외 처리해서 값 예시는 커밋되고 실제 `.env.local`은 계속 무시됨.
+- GA4: `src/components/GoogleAnalytics.js` 추가, `NEXT_PUBLIC_GA_MEASUREMENT_ID`가 설정된 경우에만
+  `next/script`로 gtag 스크립트 로드 (미설정 시 아무것도 렌더링 안 함 — 측정 ID 받으면 Vercel 환경변수에만 추가하면 됨,
+  코드 변경 불필요).
+
+## 멀티 테스트 확장 (Phase 2.5, 1주차, 2026-07-09)
+- `src/lib/testEngine.js`: 문항 응답 → 축(axis)별 점수 합산 → 결과 코드 결정 → 결과 콘텐츠 매핑까지의 공통 로직.
+  축을 1개(2가지 결과) 또는 2개(4가지 결과) 정의하는 것만으로 테토-에겐/HSP/애착유형 전부 재사용 가능하도록 설계함.
+  기존 `/mbti` 궁합 로직(`generateReport.js`, `mbtiSlug.js`)은 전혀 건드리지 않음 — 완전히 별도 경로.
+- `src/app/tests/teto-egen/`: 테토-에겐 테스트 구현 (12문항, `TetoEgenQuiz.js` 클라이언트 컴포넌트).
+  브라우저에서 전체 플로우(문항 진행 → 결과 표시 → 다시하기) 직접 확인함, 콘솔 에러 없음.
+  **문항/결과 카피(`src/data/tests/teto-egen/questions.js`, `results.js`)는 전부 초안이며 미확정 —
+  사장님 검토 후 확정할 것.**
+- 향후 3종(HSP, 애착유형, 감다살)도 `src/data/tests/{slug}/questions.js` + `results.js` + `testEngine.js` 조합으로
+  같은 패턴 재사용 예정 (`Spec.md` 2.5.4 참고).
+
 ## 아직 안 한 것 / 다음 세션 TODO
-- **GitHub push 필요** — 이 세션에서 GitHub MCP 인증이 계속 실패해서 아직 원격 저장소에 못 올림.
-  새 세션에서 `mbti-er`라는 이름으로 private 저장소 만들고 push 진행할 것 (설명: "MBTI 궁합/유형별 특징
-  콘텐츠 사이트 (Next.js) - 부업 프로젝트"). `.gitignore`에 이미 `node_modules`, `.next` 등은 제외되어 있음.
-  `.idea/`, `public/eb9da986-....png`(원본 그리드, 용량 큼), 기본 Next.js 템플릿 SVG(`public/*.svg` 중
-  코드에서 참조 안 되는 것들), `favicon.ico`는 굳이 안 올려도 됨.
-- 실제 도메인 없음 (`NEXT_PUBLIC_SITE_URL` 환경변수 미설정, sitemap이 localhost 기준)
+- Vercel 실제 연동 (위 가이드대로 사용자가 진행)
+- GA4 측정 ID 발급 후 Vercel 환경변수에 등록
 - 애드센스 미신청/미연동
 - 결제(토스페이먼츠/포트원) 미연동 — 버튼 누르면 alert만 뜸
-- 애널리틱스(GA 등) 없음
-- Vercel 배포 안 함 (로컬 개발만 진행)
+- 테토-에겐 문항/결과 카피 사장님 검토 및 확정
+- `public/eb9da986-....png`(원본 그리드, 2.5MB) 등 배포에 불필요한 파일 정리 검토 (Spec.md Phase 1-5)
+- 2주차 예정: 감다살/감다뒤, HSP 자애/타애 민감형 (Spec.md 참고)
 
 ## 작업 방식 관련 참고 (`ROLE.md` 참고)
 - 사용자는 애매한 부분 있으면 최대한 많이 물어봐주길 원함 (질문 개수 제한 없음)
