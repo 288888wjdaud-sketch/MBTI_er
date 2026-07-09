@@ -1,0 +1,194 @@
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px 80px;
+  min-height: 100vh;
+}
+
+.main {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.navRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.backLink {
+  font-size: 13px;
+  color: #888;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.header {
+  text-align: center;
+}
+
+.heroRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.heroImageWrap {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroLabel {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.oneLiner {
+  margin-top: 6px;
+  color: #666;
+}
+
+.card {
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  padding: 20px;
+  background: #fff;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.list {
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.genderSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.genderSectionTitle {
+  font-size: 16px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.genderCard {
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  padding: 20px;
+  background: #fff;
+}
+
+.genderCardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #2f6fed;
+}
+
+.genderOneLiner {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.genderDl {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.genderDl dt {
+  font-size: 12px;
+  font-weight: 700;
+  color: #999;
+  margin-top: 10px;
+}
+
+.genderDl dd {
+  margin: 0;
+}
+
+.related {
+  border-top: 1px solid #eaeaea;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.relatedTitle {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.relatedLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.relatedLinks a {
+  color: #2f6fed;
+  text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: #111;
+    border-color: #2a2a2a;
+  }
+
+  .oneLiner {
+    color: #aaa;
+  }
+
+  .related {
+    border-color: #2a2a2a;
+  }
+
+  .genderCard {
+    background: #111;
+    border-color: #2a2a2a;
+  }
+
+  .genderDl dt {
+    color: #777;
+  }
+}

@@ -1,0 +1,31 @@
+.slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90px;
+  border: 1px dashed #ccc;
+  border-radius: 12px;
+  color: #999;
+  font-size: 13px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.02),
+    rgba(0, 0, 0, 0.02) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+@media (prefers-color-scheme: dark) {
+  .slot {
+    border-color: #333;
+    color: #666;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.03) 10px,
+      transparent 10px,
+      transparent 20px
+    );
+  }
+}

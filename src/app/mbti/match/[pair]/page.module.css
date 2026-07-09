@@ -1,0 +1,47 @@
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px 80px;
+  min-height: 100vh;
+}
+
+.main {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.backLink {
+  font-size: 13px;
+  color: #888;
+}
+
+.related {
+  border-top: 1px solid #eaeaea;
+  padding-top: 16px;
+}
+
+.relatedTitle {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.relatedLinks {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+}
+
+.relatedLinks a {
+  color: #2f6fed;
+  text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+  .related {
+    border-color: #2a2a2a;
+  }
+}

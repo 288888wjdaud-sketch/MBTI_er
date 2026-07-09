@@ -1,1 +1,3 @@
 @AGENTS.md
+@ROLE.md
+@PROJECT_STATUS.md

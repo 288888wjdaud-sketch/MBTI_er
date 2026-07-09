@@ -1,0 +1,25 @@
+.pairHero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pairImageWrap {
+  position: relative;
+  flex: 1;
+  aspect-ratio: 3 / 2;
+  max-width: 200px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.pairImage {
+  object-fit: cover;
+}
+
+.pairCross {
+  font-size: 20px;
+  font-weight: 800;
+  color: #999;
+}
