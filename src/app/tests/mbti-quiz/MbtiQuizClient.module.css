@@ -1,0 +1,212 @@
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 48px 20px 80px;
+  min-height: 100vh;
+}
+
+.main {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.progress {
+  color: #666;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.question {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+.options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.optionButton {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.optionButton:hover {
+  border-color: #2f6fed;
+  transform: translateY(-1px);
+}
+
+.resultLabel {
+  color: #666;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.resultTitle {
+  font-size: 40px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.resultTagline {
+  color: #2f6fed;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.detailLink {
+  margin-top: 20px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  background: #2f6fed;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.matchBlock {
+  width: 100%;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #eaeaea;
+  text-align: left;
+}
+
+.matchHeading {
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.matchForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.matchForm select {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  background: #fff;
+}
+
+.genderRow {
+  display: flex;
+  gap: 8px;
+}
+
+.genderToggle {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+}
+
+.genderButton,
+.genderButtonActive {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.genderButtonActive {
+  background: #2f6fed;
+  border-color: #2f6fed;
+  color: #fff;
+}
+
+.matchSubmit {
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  background: #2f6fed;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.matchSubmit:disabled {
+  background: #b9c7e6;
+  cursor: not-allowed;
+}
+
+.matchSubmit:not(:disabled):hover {
+  background: #2559c7;
+  transform: translateY(-1px);
+}
+
+.restartButton {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  background: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .progress,
+  .resultLabel,
+  .restartButton {
+    color: #aaa;
+  }
+
+  .optionButton,
+  .matchForm select {
+    background: #111;
+    border-color: #333;
+    color: #eee;
+  }
+
+  .matchBlock {
+    border-color: #2a2a2a;
+  }
+
+  .genderButton {
+    background: #111;
+    border-color: #333;
+    color: #aaa;
+  }
+
+  .genderButtonActive {
+    background: #2f6fed;
+    border-color: #2f6fed;
+    color: #fff;
+  }
+
+  .restartButton {
+    border-color: #333;
+  }
+}

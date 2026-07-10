@@ -42,6 +42,19 @@
   font-weight: 600;
 }
 
+.fieldHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.quizLink {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2f6fed;
+}
+
 .field select {
   padding: 12px 14px;
   border-radius: 12px;

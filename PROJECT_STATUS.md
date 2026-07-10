@@ -87,14 +87,37 @@
 - 향후 3종(HSP, 애착유형, 감다살)도 `src/data/tests/{slug}/questions.js` + `results.js` + `testEngine.js` 조합으로
   같은 패턴 재사용 예정 (`Spec.md` 2.5.4 참고).
 
+## 2주차 작업 (2026-07-10)
+
+**① 테토-에겐 12→25문항 확장**
+- `src/data/tests/teto-egen/questions.js`에 Spec.md 2.5.5③에서 사장님이 확정한 q13~q25(13문항)을 그대로 추가.
+  q1~q12는 여전히 초안(미확정), q13~q25만 확정본 — 파일 상단 주석에 구분 명시해둠.
+
+**② MBTI 실제 검사 신규 추가 (`src/app/tests/mbti-quiz/`)**
+- EI/SN/TF/JP 4축 × 6문항 = 24문항. `testEngine.js`는 전혀 수정하지 않고, `resolveResultKey`가 반환하는
+  `"E-S-T-J"` 형태를 `resultKeyToMbtiCode()`(신규, `src/data/tests/mbti-quiz/axes.js`)로 대시만 제거해
+  기존 MBTI 코드(`"ESTJ"`)로 변환 — 다축 구조를 그대로 재사용한다는 원칙을 지킴.
+- 결과는 새 결과 페이지를 만들지 않고 기존 `/mbti/[type]`으로 "자세히 보기" 링크 연결.
+  추가로 결과 화면 안에 상대방 MBTI 선택 미니 폼을 넣어서, 입력하면 바로 `/mbti/match/[pair]`로 연결됨
+  (브라우저로 ESTJ+INFP 조합까지 전체 플로우 실제 확인함, 콘솔 에러 없음).
+- 홈 화면(`src/app/page.js`)의 "나의 MBTI" 필드 옆에 "모르면 검사로 알아보기" 링크 추가 — 기존 "직접 선택" 폼은
+  그대로 두고 옆에 검사 경로만 병렬로 얹은 형태.
+- **문항 카피(`src/data/tests/mbti-quiz/questions.js`)는 전부 초안이며 미확정 — 사장님 검토 후 확정할 것.**
+
+**③ MBTI 궁합 콘텐츠 소폭 보강**
+- `src/data/compatibilityContent.js`의 FRAGMENTS 32개 조각 전부에 기존 문장 톤을 유지한 문장 1개씩을 덧붙여
+  "한 문단 → 한 문단 반" 분량으로 확장. 구조(`DIMENSIONS`, `SECTION_META`)나 조합 로직(`generateReport.js`)은
+  전혀 안 건드림 — 순수 텍스트만 보강.
+
 ## 아직 안 한 것 / 다음 세션 TODO
 - Vercel 실제 연동 (위 가이드대로 사용자가 진행)
 - GA4 측정 ID 발급 후 Vercel 환경변수에 등록
 - 애드센스 미신청/미연동
 - 결제(토스페이먼츠/포트원) 미연동 — 버튼 누르면 alert만 뜸
-- 테토-에겐 문항/결과 카피 사장님 검토 및 확정
+- **문항 카피 검토 대기**: 테토-에겐 q1~q12(초안), MBTI 실검사 24문항 전체 — 둘 다 사장님 확정 필요
+- 브랜드명 "테스트할게"로 변경 건은 Spec.md에 반영돼 있으나 이번 2주차 작업 범위엔 포함 안 됨 (다음 라운드에 지시 필요)
 - `public/eb9da986-....png`(원본 그리드, 2.5MB) 등 배포에 불필요한 파일 정리 검토 (Spec.md Phase 1-5)
-- 2주차 예정: 감다살/감다뒤, HSP 자애/타애 민감형 (Spec.md 참고)
+- 3주차 예정: 감다살/감다뒤, HSP 자애/타애 민감형 (Spec.md 참고)
 
 ## 작업 방식 관련 참고 (`ROLE.md` 참고)
 - 사용자는 애매한 부분 있으면 최대한 많이 물어봐주길 원함 (질문 개수 제한 없음)

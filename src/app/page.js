@@ -81,7 +81,12 @@ export default function Home() {
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <label className={styles.field}>
-            <span>나의 MBTI</span>
+            <span className={styles.fieldHeader}>
+              나의 MBTI
+              <Link href="/tests/mbti-quiz" className={styles.quizLink}>
+                모르면 검사로 알아보기
+              </Link>
+            </span>
             <select value={me} onChange={(e) => setMe(e.target.value)} required>
               <option value="" disabled>
                 선택해주세요
