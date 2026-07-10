@@ -1,152 +1,123 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
-import { MBTI_TYPES } from "@/data/mbtiTypes";
-import { toPairSlug } from "@/lib/mbtiSlug";
+import { TEST_CATALOG, CATEGORIES } from "@/data/testCatalog";
 import styles from "./page.module.css";
 
-const GENDER_OPTIONS = [
-  { value: "man", label: "남자" },
-  { value: "woman", label: "여자" },
-];
-
-function opposite(gender) {
-  return gender === "man" ? "woman" : "man";
-}
-
-function GenderToggle({ value, onChange, size = "normal" }) {
-  return (
-    <div
-      className={`${styles.genderToggle} ${size === "small" ? styles.genderToggleSmall : ""}`}
-    >
-      {GENDER_OPTIONS.map((g) => (
-        <button
-          key={g.value}
-          type="button"
-          className={`${styles.genderButton} ${size === "small" ? styles.genderButtonSmall : ""} ${value === g.value ? styles.genderButtonActive : ""}`}
-          onClick={() => onChange(g.value)}
-        >
-          {g.label}
-        </button>
-      ))}
-    </div>
-  );
-}
-
 export default function Home() {
-  const router = useRouter();
-  const [me, setMe] = useState("");
-  const [meGender, setMeGender] = useState("man");
-  const [partner, setPartner] = useState("");
-  const [partnerGender, setPartnerGender] = useState("woman");
-  const [browseGender, setBrowseGender] = useState("man");
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [category, setCategory] = useState("all");
 
-  const canSubmit = me && partner;
+  const filteredTests =
+    category === "all" ? TEST_CATALOG : TEST_CATALOG.filter((t) => t.category === category);
 
-  function handleMeGenderChange(gender) {
-    setMeGender(gender);
-    setPartnerGender(opposite(gender));
-  }
-
-  function handlePartnerGenderChange(gender) {
-    setPartnerGender(gender);
-    setMeGender(opposite(gender));
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!canSubmit) return;
-
-    // 궁합 URL은 항상 알파벳순 정렬된 코드를 쓰므로(예: estj-infp),
-    // 정렬 후 각 코드가 나/상대방 중 누구였는지에 맞춰 성별을 다시 매칭한다.
-    const isMeFirst = me.toUpperCase() <= partner.toUpperCase();
-    const genderA = isMeFirst ? meGender : partnerGender;
-    const genderB = isMeFirst ? partnerGender : meGender;
-
-    router.push(
-      `/mbti/match/${toPairSlug(me, partner)}?ga=${genderA}&gb=${genderB}`
-    );
+  function selectCategory(key) {
+    setCategory(key);
+    setDrawerOpen(false);
   }
 
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>MBTIer</h1>
-        <p className={styles.subtitle}>
-          나와 그 사람의 MBTI 궁합, 진짜 속마음까지 알아보기
-        </p>
+      <header className={styles.header}>
+        <button
+          type="button"
+          className={styles.menuButton}
+          aria-label="카테고리 메뉴 열기"
+          onClick={() => setDrawerOpen(true)}
+        >
+          ☰
+        </button>
+        <span className={styles.logo}>테스트할개</span>
+      </header>
 
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <label className={styles.field}>
-            <span className={styles.fieldHeader}>
-              나의 MBTI
-              <Link href="/tests/mbti-quiz" className={styles.quizLink}>
-                모르면 검사로 알아보기
-              </Link>
-            </span>
-            <select value={me} onChange={(e) => setMe(e.target.value)} required>
-              <option value="" disabled>
-                선택해주세요
-              </option>
-              {MBTI_TYPES.map((t) => (
-                <option key={t.code} value={t.code}>
-                  {t.code} · {t.nickname}
-                </option>
-              ))}
-            </select>
-            <GenderToggle value={meGender} onChange={handleMeGenderChange} />
-          </label>
-
-          <label className={styles.field}>
-            <span>상대방의 MBTI</span>
-            <select
-              value={partner}
-              onChange={(e) => setPartner(e.target.value)}
-              required
-            >
-              <option value="" disabled>
-                선택해주세요
-              </option>
-              {MBTI_TYPES.map((t) => (
-                <option key={t.code} value={t.code}>
-                  {t.code} · {t.nickname}
-                </option>
-              ))}
-            </select>
-            <GenderToggle value={partnerGender} onChange={handlePartnerGenderChange} />
-          </label>
-
-          <button className={styles.submit} type="submit" disabled={!canSubmit}>
-            궁합 결과 보기
-          </button>
-        </form>
-
-        <section className={styles.typeList}>
-          <div className={styles.typeListHeader}>
-            <h2 className={styles.typeListTitle}>MBTI 유형별 특징 보기</h2>
-            <GenderToggle value={browseGender} onChange={setBrowseGender} size="small" />
-          </div>
-          <div className={styles.typeCardGrid}>
-            {MBTI_TYPES.map((t) => (
-              <Link
-                key={t.code}
-                href={`/mbti/${t.code.toLowerCase()}`}
-                className={styles.typeCard}
+      {drawerOpen && (
+        <div className={styles.drawerOverlay} onClick={() => setDrawerOpen(false)}>
+          <nav
+            className={styles.drawer}
+            onClick={(e) => e.stopPropagation()}
+            aria-label="카테고리 메뉴"
+          >
+            <div className={styles.drawerHeader}>
+              <span>카테고리</span>
+              <button
+                type="button"
+                className={styles.drawerClose}
+                aria-label="메뉴 닫기"
+                onClick={() => setDrawerOpen(false)}
               >
-                <Image
-                  src={`/images/mbti/${browseGender}/${t.code.toLowerCase()}.png`}
-                  alt={`${t.code} ${t.nickname}`}
-                  fill
-                  sizes="(max-width: 480px) 50vw, 200px"
-                  className={styles.typeCardImage}
-                />
-              </Link>
+                ✕
+              </button>
+            </div>
+            {CATEGORIES.map((c) => (
+              <button
+                key={c.key}
+                type="button"
+                className={`${styles.drawerItem} ${category === c.key ? styles.drawerItemActive : ""}`}
+                onClick={() => selectCategory(c.key)}
+              >
+                {c.label}
+              </button>
             ))}
-          </div>
+          </nav>
+        </div>
+      )}
+
+      <main className={styles.main}>
+        <p className={styles.subtitle}>MBTI부터 감정심리까지, 나를 알아가는 테스트 모음</p>
+
+        <section className={styles.intro}>
+          <p>
+            테스트할개는 MBTI 궁합부터 테토-에겐, HSP 민감형, 애착유형, 감다살까지 — 성격유형과
+            감정심리를 가볍게 알아볼 수 있는 테스트를 한곳에 모았습니다.
+          </p>
+          <p>
+            각 테스트는 몇 개의 질문에 답하는 것만으로 1~5분 안에 결과를 확인할 수 있고, 결과는
+            저장 없이 그 자리에서 바로 보여드립니다.
+          </p>
         </section>
+
+        <div className={styles.categoryTabs}>
+          {CATEGORIES.map((c) => (
+            <button
+              key={c.key}
+              type="button"
+              className={`${styles.categoryTab} ${category === c.key ? styles.categoryTabActive : ""}`}
+              onClick={() => setCategory(c.key)}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+
+        <div className={styles.cardGrid}>
+          {filteredTests.map((test) => (
+            <Link key={test.slug} href={test.href} className={styles.card}>
+              <div
+                className={`${styles.thumbnail} ${
+                  test.category === "personality" ? styles.thumbnailPersonality : styles.thumbnailEmotion
+                }`}
+              >
+                {test.isNew && <span className={styles.newBadge}>NEW</span>}
+                <span className={styles.thumbnailEmoji}>{test.emoji}</span>
+              </div>
+              <div className={styles.cardBody}>
+                <p className={styles.cardTitle}>{test.title}</p>
+                <p className={styles.cardDescription}>{test.description}</p>
+                <div className={styles.cardMeta}>
+                  <span
+                    className={`${styles.categoryPill} ${
+                      test.category === "personality" ? styles.pillPersonality : styles.pillEmotion
+                    }`}
+                  >
+                    {CATEGORIES.find((c) => c.key === test.category)?.label}
+                  </span>
+                  <span className={styles.cardTime}>{test.time}</span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </main>
     </div>
   );

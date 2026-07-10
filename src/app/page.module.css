@@ -1,13 +1,96 @@
 .page {
   display: flex;
   justify-content: center;
-  padding: 48px 20px 80px;
   min-height: 100vh;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  background: var(--background);
+  border-bottom: 1px solid #eaeaea;
+  z-index: 10;
+}
+
+.menuButton {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.logo {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.drawerOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 20;
+}
+
+.drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 240px;
+  background: var(--background);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.drawerClose {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.drawerItem {
+  text-align: left;
+  padding: 12px 10px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+}
+
+.drawerItemActive {
+  background: rgba(47, 111, 237, 0.1);
+  color: #2f6fed;
 }
 
 .main {
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
+  padding: 76px 20px 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,64 +98,33 @@
   gap: 8px;
 }
 
-.title {
-  font-size: 32px;
-  font-weight: 800;
-}
-
 .subtitle {
   color: #666;
-  margin-bottom: 24px;
+  font-size: 15px;
 }
 
-.form {
+.intro {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.categoryTabs {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 16px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.fieldHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: 8px;
+  margin-top: 28px;
 }
 
-.quizLink {
-  font-size: 12px;
-  font-weight: 600;
-  color: #2f6fed;
-}
-
-.field select {
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  font-size: 15px;
-  background: #fff;
-}
-
-.genderToggle {
-  display: flex;
-  gap: 6px;
-  margin-top: 2px;
-}
-
-.genderButton {
-  flex: 1;
-  padding: 8px 0;
-  border-radius: 8px;
+.categoryTab {
+  padding: 8px 16px;
+  border-radius: 999px;
   border: 1px solid #ddd;
   background: #fff;
   font-size: 13px;
@@ -82,119 +134,143 @@
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.genderButtonActive {
+.categoryTabActive {
   background: #2f6fed;
   border-color: #2f6fed;
   color: #fff;
 }
 
-.submit {
-  margin-top: 8px;
-  padding: 14px;
-  border-radius: 999px;
-  border: none;
-  background: #2f6fed;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease;
-}
-
-.submit:disabled {
-  background: #b9c7e6;
-  cursor: not-allowed;
-}
-
-.submit:not(:disabled):hover {
-  background: #2559c7;
-  transform: translateY(-1px);
-}
-
-.typeList {
+.cardGrid {
   width: 100%;
-  margin-top: 40px;
-  padding-top: 24px;
-  border-top: 1px solid #eaeaea;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 16px;
 }
 
-.typeListHeader {
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  border: 1px solid #eaeaea;
+  overflow: hidden;
+  text-align: left;
+}
+
+.thumbnail {
+  position: relative;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
+  justify-content: center;
 }
 
-.typeListTitle {
+.thumbnailPersonality {
+  background: rgba(47, 111, 237, 0.12);
+}
+
+.thumbnailEmotion {
+  background: rgba(139, 124, 246, 0.14);
+}
+
+.thumbnailEmoji {
+  font-size: 40px;
+}
+
+.newBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #ff4b6e;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.cardBody {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardTitle {
   font-size: 14px;
   font-weight: 700;
 }
 
-.genderToggleSmall {
-  width: auto;
-  flex-shrink: 0;
+.cardDescription {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
 }
 
-.genderButtonSmall {
-  flex: none;
-  padding: 4px 10px;
-  font-size: 13px;
-  font-weight: 700;
+.cardMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.categoryPill {
+  padding: 2px 8px;
   border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
 }
 
-.typeCardGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+.pillPersonality {
+  background: rgba(47, 111, 237, 0.14);
+  color: #2f6fed;
 }
 
-.typeCard {
-  position: relative;
-  display: block;
-  aspect-ratio: 3 / 2;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid #eaeaea;
+.pillEmotion {
+  background: rgba(139, 124, 246, 0.16);
+  color: #8b7cf6;
 }
 
-.typeCardImage {
-  object-fit: cover;
-  transition: transform 0.2s ease;
-}
-
-.typeCard:hover .typeCardImage {
-  transform: scale(1.04);
+.cardTime {
+  font-size: 11px;
+  color: #999;
 }
 
 @media (prefers-color-scheme: dark) {
-  .field select {
-    background: #111;
-    border-color: #333;
-    color: #eee;
+  .header {
+    border-color: #2a2a2a;
   }
 
   .subtitle {
     color: #aaa;
   }
 
-  .typeList {
-    border-color: #2a2a2a;
+  .intro {
+    color: #ccc;
   }
 
-  .typeCard {
-    border-color: #2a2a2a;
-  }
-
-  .genderButton {
+  .categoryTab {
     background: #111;
     border-color: #333;
     color: #aaa;
   }
 
-  .genderButtonActive {
+  .categoryTabActive {
     background: #2f6fed;
     border-color: #2f6fed;
     color: #fff;
+  }
+
+  .card {
+    border-color: #2a2a2a;
+  }
+
+  .cardDescription {
+    color: #aaa;
+  }
+
+  .cardTime {
+    color: #777;
   }
 }

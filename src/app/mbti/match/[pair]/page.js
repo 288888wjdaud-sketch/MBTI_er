@@ -26,7 +26,7 @@ export async function generateMetadata({ params }) {
   const parsed = parsePairSlug(pair);
   if (!parsed) return {};
   const [a, b] = parsed;
-  const title = `${a} ${b} 궁합 - ${getNickname(a)} × ${getNickname(b)} | MBTIer`;
+  const title = `${a} ${b} 궁합 - ${getNickname(a)} × ${getNickname(b)} | 테스트할개`;
   const description = `${a}와 ${b}의 MBTI 궁합, 갈등 포인트, 상대방의 속마음까지 무료로 확인해보세요.`;
   return {
     title,
@@ -54,7 +54,7 @@ export default async function MatchPage({ params }) {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Link href="/" className={styles.backLink}>
+        <Link href="/mbti" className={styles.backLink}>
           ← 다른 조합 보기
         </Link>
 

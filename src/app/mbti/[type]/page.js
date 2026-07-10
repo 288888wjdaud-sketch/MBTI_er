@@ -20,7 +20,7 @@ export async function generateMetadata({ params }) {
   const profile = TYPE_PROFILES[code];
   if (!profile) return {};
   return {
-    title: `${code} 특징 - ${getNickname(code)} 성격, 연애, 강점과 약점 | MBTIer`,
+    title: `${code} 특징 - ${getNickname(code)} 성격, 연애, 강점과 약점 | 테스트할개`,
     description: profile.oneLiner,
   };
 }
@@ -54,7 +54,7 @@ export default async function TypeProfilePage({ params }) {
     <div className={styles.page}>
       <main className={styles.main}>
         <div className={styles.navRow}>
-          <Link href="/" className={styles.backLink}>
+          <Link href="/mbti" className={styles.backLink}>
             ← 메인으로
           </Link>
           <BackButton className={styles.backLink}>← 이전 화면으로</BackButton>

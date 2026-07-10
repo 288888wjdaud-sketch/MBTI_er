@@ -1,48 +1,49 @@
 // [초안 — 확정 아님] 감다살/감다뒤 데일리 체크 문항 (5문항, 초경량).
-// 사장님 검토/승인 전까지는 카피를 최종본으로 취급하지 말 것 (Spec.md 2.5.4 참고).
-// "감다살"(감정이 살짝 예민해진 날) / "감다뒤"(감정이 한 톤 무뎌진 날)로 해석해서 작성했다 —
-// 신조어의 정확한 뉘앙스를 확인 못 했으니 사장님이 보시고 의미가 다르면 알려주세요.
+// 사장님 검토/승인 전까지는 카피를 최종본으로 취급하지 말 것 (Spec.md 2.5.4, 2.5.6 참고).
+// "감다살"("감 다 살았네") = 센스·눈치·타이밍이 오늘 살아있는 상태.
+// "감다뒤"("감 다 뒤졌다") = 센스가 죽어서 눈치 없거나 타이밍을 놓친 상태.
+// (2026-07-11 정정: 이전 초안은 "감정 상태"로 잘못 해석했던 버전이었음 — 밈 의미로 전면 교체)
 // 각 문항은 2지선다이며 옵션의 scores.gamdasal이 +1이면 "gamdasal", -1이면 "gamdawi" 성향으로 집계된다.
 
 export const GAMDASAL_QUESTIONS = [
   {
     id: "q1",
-    text: "오늘 아침 눈뜨자마자 든 기분은?",
+    text: "대화 중 갑자기 정적이 흐르면 나는?",
     options: [
-      { label: "괜히 눈물이 핑 돌 것 같다", scores: { gamdasal: 1 } },
-      { label: "그냥 덤덤하게 하루가 시작됐다", scores: { gamdasal: -1 } },
+      { label: "센스있게 화제를 바로 돌린다", scores: { gamdasal: 1 } },
+      { label: "나도 같이 어색해져서 아무 말도 못한다", scores: { gamdasal: -1 } },
     ],
   },
   {
     id: "q2",
-    text: "오늘 누가 사소한 말 한마디를 하면?",
+    text: "친구 텐션이 평소랑 다르면 나는?",
     options: [
-      { label: "괜히 신경 쓰이고 마음에 남는다", scores: { gamdasal: 1 } },
-      { label: "그러려니 하고 넘긴다", scores: { gamdasal: -1 } },
+      { label: "바로 눈치채고 먼저 말을 건다", scores: { gamdasal: 1 } },
+      { label: "한참 지나서야 \"무슨 일 있었어?\"라고 뒤늦게 묻는다", scores: { gamdasal: -1 } },
     ],
   },
   {
     id: "q3",
-    text: "지금 내 감정 상태를 색으로 표현한다면?",
+    text: "단체 카톡방에서 나는?",
     options: [
-      { label: "파스텔톤처럼 여리고 옅은 색", scores: { gamdasal: 1 } },
-      { label: "그레이톤처럼 무던한 색", scores: { gamdasal: -1 } },
+      { label: "타이밍 좋게 드립 치고 리액션도 잘 받는 편", scores: { gamdasal: 1 } },
+      { label: "타이밍 놓쳐서 이미 지나간 얘기에 뒤늦게 답장한다", scores: { gamdasal: -1 } },
     ],
   },
   {
     id: "q4",
-    text: "오늘 좋아하는 노래를 들으면?",
+    text: "상대방 표정만 보고도 나는?",
     options: [
-      { label: "괜히 울컥하고 감정이 북받친다", scores: { gamdasal: 1 } },
-      { label: "그냥 좋다 정도로 편하게 듣는다", scores: { gamdasal: -1 } },
+      { label: "기분 상태를 바로 캐치한다", scores: { gamdasal: 1 } },
+      { label: "나중에 듣고서야 \"아 그랬구나\" 한다", scores: { gamdasal: -1 } },
     ],
   },
   {
     id: "q5",
-    text: "지금 컨디션을 한마디로 하면?",
+    text: "오늘 하루 전체적으로 나는?",
     options: [
-      { label: "\"오늘따라 다 예민하게 느껴져\"", scores: { gamdasal: 1 } },
-      { label: "\"오늘은 웬만한 건 다 무던하게 넘어가져\"", scores: { gamdasal: -1 } },
+      { label: "뭘 해도 척척 재치있게 풀리는 느낌", scores: { gamdasal: 1 } },
+      { label: "뭘 해도 한 박자씩 늦거나 어긋나는 느낌", scores: { gamdasal: -1 } },
     ],
   },
 ];

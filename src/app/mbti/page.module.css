@@ -1,0 +1,211 @@
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 48px 20px 80px;
+  min-height: 100vh;
+}
+
+.main {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.backLink {
+  align-self: flex-start;
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.fieldHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.quizLink {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2f6fed;
+}
+
+.field select {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  background: #fff;
+}
+
+.genderToggle {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.genderButton {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.genderButtonActive {
+  background: #2f6fed;
+  border-color: #2f6fed;
+  color: #fff;
+}
+
+.submit {
+  margin-top: 8px;
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  background: #2f6fed;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.submit:disabled {
+  background: #b9c7e6;
+  cursor: not-allowed;
+}
+
+.submit:not(:disabled):hover {
+  background: #2559c7;
+  transform: translateY(-1px);
+}
+
+.typeList {
+  width: 100%;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid #eaeaea;
+}
+
+.typeListHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.typeListTitle {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.genderToggleSmall {
+  width: auto;
+  flex-shrink: 0;
+}
+
+.genderButtonSmall {
+  flex: none;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+.typeCardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.typeCard {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 2;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+}
+
+.typeCardImage {
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.typeCard:hover .typeCardImage {
+  transform: scale(1.04);
+}
+
+@media (prefers-color-scheme: dark) {
+  .backLink {
+    color: #666;
+  }
+
+  .field select {
+    background: #111;
+    border-color: #333;
+    color: #eee;
+  }
+
+  .subtitle {
+    color: #aaa;
+  }
+
+  .typeList {
+    border-color: #2a2a2a;
+  }
+
+  .typeCard {
+    border-color: #2a2a2a;
+  }
+
+  .genderButton {
+    background: #111;
+    border-color: #333;
+    color: #aaa;
+  }
+
+  .genderButtonActive {
+    background: #2f6fed;
+    border-color: #2f6fed;
+    color: #fff;
+  }
+}
