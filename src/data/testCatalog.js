@@ -69,4 +69,14 @@ export const TEST_CATALOG = [
     href: "/tests/mental-age",
     isNew: true,
   },
+  {
+    slug: "balance-game",
+    title: "밸런스게임",
+    description: "짜장면 vs 짬뽕부터 아침형 vs 저녁형까지, 내 선택 리포트",
+    time: "3분",
+    category: "personality",
+    emoji: "⚖️",
+    href: "/tests/balance-game",
+    isNew: true,
+  },
 ];
