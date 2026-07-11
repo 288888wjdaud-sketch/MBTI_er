@@ -79,4 +79,14 @@ export const TEST_CATALOG = [
     href: "/tests/balance-game",
     isNew: true,
   },
+  {
+    slug: "slang-trend",
+    title: "신조어 트렌드 지수",
+    description: "요즘 유행어 10문제로 알아보는 내 트렌드 감각",
+    time: "2분",
+    category: "personality",
+    emoji: "🔥",
+    href: "/tests/slang-trend",
+    isNew: true,
+  },
 ];
