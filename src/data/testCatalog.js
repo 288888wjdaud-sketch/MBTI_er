@@ -15,6 +15,7 @@ export const TEST_CATALOG = [
     time: "1분",
     category: "personality",
     emoji: "💙",
+    image: "/images/main/testListCard/card_mbti_dark.jpg",
     href: "/mbti",
     isNew: false,
   },

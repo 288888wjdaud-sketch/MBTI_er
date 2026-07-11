@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { TEST_CATALOG, CATEGORIES } from "@/data/testCatalog";
 import styles from "./page.module.css";
 
@@ -72,7 +73,17 @@ export default function HomeClient() {
                 }`}
               >
                 {test.isNew && <span className={styles.newBadge}>NEW</span>}
-                <span className={styles.thumbnailEmoji}>{test.emoji}</span>
+                {test.image ? (
+                  <Image
+                    src={test.image}
+                    alt={test.title}
+                    fill
+                    sizes="(max-width: 480px) 50vw, 240px"
+                    className={styles.thumbnailImage}
+                  />
+                ) : (
+                  <span className={styles.thumbnailEmoji}>{test.emoji}</span>
+                )}
               </div>
               <div className={styles.cardBody}>
                 <p className={styles.cardTitle}>{test.title}</p>

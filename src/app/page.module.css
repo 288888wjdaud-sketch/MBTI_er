@@ -109,6 +109,10 @@
   background: color-mix(in srgb, var(--color-category-emotion) 14%, transparent);
 }
 
+.thumbnailImage {
+  object-fit: cover;
+}
+
 .thumbnailEmoji {
   font-size: 40px;
 }
