@@ -59,4 +59,14 @@ export const TEST_CATALOG = [
     href: "/tests/gamdasal",
     isNew: true,
   },
+  {
+    slug: "mental-age",
+    title: "정신연령 테스트",
+    description: "라이프스타일로 알아보는 나의 정신연령",
+    time: "2분",
+    category: "personality",
+    emoji: "🧠",
+    href: "/tests/mental-age",
+    isNew: true,
+  },
 ];
