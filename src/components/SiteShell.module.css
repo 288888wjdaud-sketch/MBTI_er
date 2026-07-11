@@ -1,15 +1,8 @@
 .shell {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.content {
+  flex-direction: column;
   flex: 1;
-  min-width: 0;
+  width: 100%;
 }
 
 @media (min-width: 960px) {

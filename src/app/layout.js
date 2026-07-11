@@ -26,9 +26,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <SiteHeader />
-        <SiteShell>{children}</SiteShell>
-        <SiteFooter />
+        <div className="appFrame">
+          <SiteHeader />
+          <SiteShell>{children}</SiteShell>
+          <SiteFooter />
+        </div>
         <GoogleAnalytics />
       </body>
     </html>
