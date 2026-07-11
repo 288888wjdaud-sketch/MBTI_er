@@ -5,6 +5,7 @@ import Link from "next/link";
 import { runTest, isComplete } from "@/lib/testEngine";
 import { TETO_EGEN_QUESTIONS } from "@/data/tests/teto-egen/questions";
 import { TETO_EGEN_AXES, TETO_EGEN_RESULTS } from "@/data/tests/teto-egen/results";
+import ShareButton from "@/components/ShareButton";
 import styles from "./TetoEgenQuiz.module.css";
 
 export default function TetoEgenQuiz() {
@@ -49,6 +50,11 @@ export default function TetoEgenQuiz() {
           <p className={styles.resultLabel}>테스트 결과</p>
           <h1 className={styles.resultTitle}>{result.title}</h1>
           <p className={styles.resultTagline}>{result.tagline}</p>
+          <ShareButton
+            className={styles.shareButton}
+            title={`나의 테토-에겐 결과: ${result.title}`}
+            text={`나는 ${result.title}! ${result.tagline} - 테스트할개에서 확인해보세요.`}
+          />
           <p className={styles.resultDescription}>{result.description}</p>
 
           <div className={styles.traitBlock}>

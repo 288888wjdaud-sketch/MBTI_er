@@ -15,7 +15,7 @@
 }
 
 .subtitle {
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 15px;
 }
 
@@ -28,7 +28,7 @@
   margin-top: 16px;
   font-size: 14px;
   line-height: 1.6;
-  color: #444;
+  color: var(--color-text-secondary);
 }
 
 .categoryTabs {
@@ -41,19 +41,19 @@
 .categoryTab {
   padding: 8px 16px;
   border-radius: 999px;
-  border: 1px solid #ddd;
-  background: #fff;
+  border: 1px solid var(--color-border-input);
+  background: var(--color-surface);
   font-size: 13px;
   font-weight: 600;
-  color: #666;
+  color: var(--color-text-muted);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .categoryTabActive {
-  background: #2f6fed;
-  border-color: #2f6fed;
-  color: #fff;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-brand);
 }
 
 .cardGrid {
@@ -64,13 +64,33 @@
   margin-top: 16px;
 }
 
+@keyframes cardFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .card {
   display: flex;
   flex-direction: column;
   border-radius: 14px;
-  border: 1px solid #eaeaea;
+  border: 1px solid var(--color-border);
   overflow: hidden;
   text-align: left;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  animation: cardFadeInUp 0.35s ease both;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
 }
 
 .thumbnail {
@@ -82,11 +102,11 @@
 }
 
 .thumbnailPersonality {
-  background: rgba(47, 111, 237, 0.12);
+  background: color-mix(in srgb, var(--color-category-personality) 12%, transparent);
 }
 
 .thumbnailEmotion {
-  background: rgba(139, 124, 246, 0.14);
+  background: color-mix(in srgb, var(--color-category-emotion) 14%, transparent);
 }
 
 .thumbnailEmoji {
@@ -99,8 +119,8 @@
   left: 8px;
   padding: 2px 8px;
   border-radius: 999px;
-  background: #ff4b6e;
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-on-brand);
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.03em;
@@ -120,7 +140,7 @@
 
 .cardDescription {
   font-size: 12px;
-  color: #666;
+  color: var(--color-text-muted);
   line-height: 1.4;
 }
 
@@ -139,50 +159,27 @@
 }
 
 .pillPersonality {
-  background: rgba(47, 111, 237, 0.14);
-  color: #2f6fed;
+  background: color-mix(in srgb, var(--color-category-personality) 14%, transparent);
+  color: var(--color-category-personality);
 }
 
 .pillEmotion {
-  background: rgba(139, 124, 246, 0.16);
-  color: #8b7cf6;
+  background: color-mix(in srgb, var(--color-category-emotion) 16%, transparent);
+  color: var(--color-category-emotion);
 }
 
 .cardTime {
   font-size: 11px;
-  color: #999;
+  color: var(--color-text-faint);
 }
 
-@media (prefers-color-scheme: dark) {
-  .subtitle {
-    color: #aaa;
-  }
-
-  .intro {
-    color: #ccc;
-  }
-
-  .categoryTab {
-    background: #111;
-    border-color: #333;
-    color: #aaa;
-  }
-
-  .categoryTabActive {
-    background: #2f6fed;
-    border-color: #2f6fed;
-    color: #fff;
-  }
-
+@media (prefers-reduced-motion: reduce) {
   .card {
-    border-color: #2a2a2a;
+    transition: none;
+    animation: none;
   }
 
-  .cardDescription {
-    color: #aaa;
-  }
-
-  .cardTime {
-    color: #777;
+  .card:hover {
+    transform: none;
   }
 }

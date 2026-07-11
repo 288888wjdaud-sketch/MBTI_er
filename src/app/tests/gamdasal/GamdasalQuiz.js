@@ -6,6 +6,7 @@ import { calculateScores, resolveResultKey, getResult, isComplete } from "@/lib/
 import { GAMDASAL_QUESTIONS } from "@/data/tests/gamdasal/questions";
 import { GAMDASAL_AXES, GAMDASAL_RESULTS } from "@/data/tests/gamdasal/results";
 import { getDailyBias } from "@/data/tests/gamdasal/dailyBias";
+import ShareButton from "@/components/ShareButton";
 import styles from "./GamdasalQuiz.module.css";
 
 export default function GamdasalQuiz() {
@@ -48,6 +49,11 @@ export default function GamdasalQuiz() {
           <p className={styles.resultLabel}>오늘의 체크 결과</p>
           <h1 className={styles.resultTitle}>{result.title}</h1>
           <p className={styles.resultTagline}>{result.tagline}</p>
+          <ShareButton
+            className={styles.shareButton}
+            title={`오늘의 감다살/감다뒤: ${result.title}`}
+            text={`오늘 나는 ${result.title}! ${result.tagline} - 테스트할개에서 확인해보세요.`}
+          />
           <p className={styles.resultDescription}>{result.description}</p>
           <p className={styles.resultTip}>{result.tip}</p>
 

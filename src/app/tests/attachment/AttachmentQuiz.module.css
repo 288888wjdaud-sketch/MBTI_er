@@ -16,7 +16,7 @@
 }
 
 .progress {
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
@@ -40,8 +40,8 @@
   width: 100%;
   padding: 16px;
   border-radius: 12px;
-  border: 1px solid #ddd;
-  background: #fff;
+  border: 1px solid var(--color-border-input);
+  background: var(--color-surface);
   font-size: 15px;
   font-weight: 600;
   color: inherit;
@@ -50,12 +50,12 @@
 }
 
 .optionButton:hover {
-  border-color: #2f6fed;
+  border-color: var(--color-primary);
   transform: translateY(-1px);
 }
 
 .resultLabel {
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 14px;
   font-weight: 600;
 }
@@ -67,9 +67,13 @@
 }
 
 .resultTagline {
-  color: #2f6fed;
+  color: var(--color-primary);
   font-weight: 700;
   margin-top: 8px;
+}
+
+.shareButton {
+  margin-top: 14px;
 }
 
 .resultDescription {
@@ -81,8 +85,8 @@
 .disclaimer {
   margin-top: 24px;
   padding-top: 16px;
-  border-top: 1px solid #eaeaea;
-  color: #666;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -99,8 +103,8 @@
   padding: 14px;
   border-radius: 999px;
   border: none;
-  background: #2f6fed;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-on-brand);
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
@@ -108,37 +112,27 @@
 }
 
 .restartButton:hover {
-  background: #2559c7;
+  background: var(--color-primary-hover);
   transform: translateY(-1px);
 }
 
 .homeLink {
   padding: 14px;
   border-radius: 999px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border-input);
   font-size: 15px;
   font-weight: 600;
-  color: #666;
+  color: var(--color-text-muted);
 }
 
-@media (prefers-color-scheme: dark) {
-  .progress,
-  .disclaimer,
-  .resultLabel {
-    color: #aaa;
+@media (prefers-reduced-motion: reduce) {
+  .optionButton,
+  .restartButton {
+    transition: none;
   }
 
-  .optionButton {
-    background: #111;
-    border-color: #333;
-  }
-
-  .disclaimer {
-    border-color: #2a2a2a;
-  }
-
-  .homeLink {
-    border-color: #333;
-    color: #aaa;
+  .optionButton:hover,
+  .restartButton:hover {
+    transform: none;
   }
 }

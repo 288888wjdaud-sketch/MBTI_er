@@ -26,13 +26,15 @@ export async function generateMetadata({ params }) {
   const parsed = parsePairSlug(pair);
   if (!parsed) return {};
   const [a, b] = parsed;
+  const { score } = generateReport(a, b);
   const title = `${a} ${b} 궁합 - ${getNickname(a)} × ${getNickname(b)} | 테스트할개`;
-  const description = `${a}와 ${b}의 MBTI 궁합, 갈등 포인트, 상대방의 속마음까지 무료로 확인해보세요.`;
+  const description = `${a}와 ${b}의 궁합 점수는 ${score}점! 갈등 포인트, 상대방의 속마음까지 무료로 확인해보세요.`;
   return {
     title,
     description,
     // 성별 선택은 ?ga=&gb= 쿼리로만 달라지므로, 색인은 항상 쿼리 없는 기본 경로로 모은다.
     alternates: { canonical: `/mbti/match/${pair}` },
+    openGraph: { title, description, type: "website" },
   };
 }
 

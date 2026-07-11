@@ -1,0 +1,28 @@
+.shareButton {
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-input);
+  background: var(--color-surface);
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+@media (hover: hover) {
+  .shareButton:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shareButton {
+    transition: none;
+  }
+
+  .shareButton:hover {
+    transform: none;
+  }
+}

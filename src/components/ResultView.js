@@ -1,11 +1,37 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { getNickname } from "@/data/mbtiTypes";
 import { PAYWALL_ENABLED } from "@/config/features";
+import ShareButton from "@/components/ShareButton";
 import styles from "./ResultView.module.css";
+
+// 결과 공개 순간의 임팩트를 위한 점수 카운트업. prefers-reduced-motion이면 바로 최종값을 보여준다.
+function useCountUp(target) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const duration = prefersReducedMotion ? 0 : 600;
+    const start = performance.now();
+    let frameId;
+
+    function tick(now) {
+      const progress = duration === 0 ? 1 : Math.min((now - start) / duration, 1);
+      setValue(Math.round(progress * target));
+      if (progress < 1) frameId = requestAnimationFrame(tick);
+    }
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [target]);
+
+  return value;
+}
 
 export default function ResultView({ report }) {
   const { typeA, typeB, score, sections } = report;
+  const displayScore = useCountUp(score);
 
   function handleUnlock() {
     // TODO: 토스페이먼츠/포트원 결제 연동 전까지의 임시 안내
@@ -18,7 +44,12 @@ export default function ResultView({ report }) {
         <p className={styles.pair}>
           {typeA} ({getNickname(typeA)}) × {typeB} ({getNickname(typeB)})
         </p>
-        <p className={styles.score}>궁합 점수 {score}점</p>
+        <p className={styles.score}>궁합 점수 {displayScore}점</p>
+        <ShareButton
+          className={styles.shareButton}
+          title={`${typeA} × ${typeB} 궁합 결과`}
+          text={`${typeA} (${getNickname(typeA)}) × ${typeB} (${getNickname(typeB)}) 궁합 점수는 ${score}점! 우리 궁합도 확인해보세요.`}
+        />
       </div>
 
       <div className={styles.sections}>

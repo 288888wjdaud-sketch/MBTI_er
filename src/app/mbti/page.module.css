@@ -18,7 +18,7 @@
 .backLink {
   align-self: flex-start;
   font-size: 13px;
-  color: #888;
+  color: var(--color-text-subtle);
   margin-bottom: 8px;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .subtitle {
-  color: #666;
+  color: var(--color-text-muted);
   margin-bottom: 24px;
 }
 
@@ -59,15 +59,16 @@
 .quizLink {
   font-size: 12px;
   font-weight: 600;
-  color: #2f6fed;
+  color: var(--color-primary);
 }
 
 .field select {
   padding: 12px 14px;
   border-radius: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border-input);
   font-size: 15px;
-  background: #fff;
+  background: var(--color-surface);
+  color: var(--foreground);
 }
 
 .genderToggle {
@@ -80,19 +81,19 @@
   flex: 1;
   padding: 8px 0;
   border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #fff;
+  border: 1px solid var(--color-border-input);
+  background: var(--color-surface);
   font-size: 13px;
   font-weight: 600;
-  color: #666;
+  color: var(--color-text-muted);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .genderButtonActive {
-  background: #2f6fed;
-  border-color: #2f6fed;
-  color: #fff;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-brand);
 }
 
 .submit {
@@ -100,8 +101,8 @@
   padding: 14px;
   border-radius: 999px;
   border: none;
-  background: #2f6fed;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-on-brand);
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
@@ -109,12 +110,12 @@
 }
 
 .submit:disabled {
-  background: #b9c7e6;
+  background: var(--color-primary-disabled);
   cursor: not-allowed;
 }
 
 .submit:not(:disabled):hover {
-  background: #2559c7;
+  background: var(--color-primary-hover);
   transform: translateY(-1px);
 }
 
@@ -122,7 +123,7 @@
   width: 100%;
   margin-top: 40px;
   padding-top: 24px;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid var(--color-border);
 }
 
 .typeListHeader {
@@ -162,7 +163,8 @@
   aspect-ratio: 3 / 2;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid #eaeaea;
+  border: 1px solid var(--color-border);
+  transition: transform 0.15s ease;
 }
 
 .typeCardImage {
@@ -170,42 +172,28 @@
   transition: transform 0.2s ease;
 }
 
-.typeCard:hover .typeCardImage {
-  transform: scale(1.04);
+@media (hover: hover) {
+  .typeCard:hover {
+    transform: translateY(-2px);
+  }
+
+  .typeCard:hover .typeCardImage {
+    transform: scale(1.04);
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  .backLink {
-    color: #666;
+@media (prefers-reduced-motion: reduce) {
+  .typeCard,
+  .typeCardImage,
+  .submit {
+    transition: none;
   }
 
-  .field select {
-    background: #111;
-    border-color: #333;
-    color: #eee;
+  .typeCard:hover {
+    transform: none;
   }
 
-  .subtitle {
-    color: #aaa;
-  }
-
-  .typeList {
-    border-color: #2a2a2a;
-  }
-
-  .typeCard {
-    border-color: #2a2a2a;
-  }
-
-  .genderButton {
-    background: #111;
-    border-color: #333;
-    color: #aaa;
-  }
-
-  .genderButtonActive {
-    background: #2f6fed;
-    border-color: #2f6fed;
-    color: #fff;
+  .typeCard:hover .typeCardImage {
+    transform: none;
   }
 }

@@ -34,6 +34,15 @@ export default function HomeClient() {
             각 테스트는 몇 개의 질문에 답하는 것만으로 1~5분 안에 결과를 확인할 수 있고, 결과는
             저장 없이 그 자리에서 바로 보여드립니다.
           </p>
+          <p>
+            예를 들어 MBTI 궁합은 네 가지 기준으로 비교해요. 에너지 방향(E/I)이 같은지 다른지,
+            정보를 받아들이는 방식(S/N)이 통하는지, 판단 기준(T/F)이 비슷한지, 생활 방식(J/P)의
+            리듬이 맞는지를 하나씩 살펴서 겉궁합부터 속마음까지 풀어드려요.
+          </p>
+          <p>
+            모든 테스트는 재미로 즐기는 자가진단이에요. 특히 HSP·애착유형처럼 학술 척도를 모티프로
+            한 테스트는 전문 심리검사를 대체하지 않으니, 결과는 참고 정도로만 가볍게 봐주세요.
+          </p>
         </section>
 
         <div className={styles.categoryTabs}>
@@ -50,8 +59,13 @@ export default function HomeClient() {
         </div>
 
         <div className={styles.cardGrid}>
-          {filteredTests.map((test) => (
-            <Link key={test.slug} href={test.href} className={styles.card}>
+          {filteredTests.map((test, index) => (
+            <Link
+              key={`${category}-${test.slug}`}
+              href={test.href}
+              className={styles.card}
+              style={{ animationDelay: `${index * 40}ms` }}
+            >
               <div
                 className={`${styles.thumbnail} ${
                   test.category === "personality" ? styles.thumbnailPersonality : styles.thumbnailEmotion

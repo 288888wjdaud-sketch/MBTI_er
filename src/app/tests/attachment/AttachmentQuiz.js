@@ -5,6 +5,7 @@ import Link from "next/link";
 import { runTest, isComplete } from "@/lib/testEngine";
 import { ATTACHMENT_QUESTIONS } from "@/data/tests/attachment/questions";
 import { ATTACHMENT_AXES, ATTACHMENT_RESULTS } from "@/data/tests/attachment/results";
+import ShareButton from "@/components/ShareButton";
 import styles from "./AttachmentQuiz.module.css";
 
 export default function AttachmentQuiz() {
@@ -49,6 +50,11 @@ export default function AttachmentQuiz() {
           <p className={styles.resultLabel}>테스트 결과</p>
           <h1 className={styles.resultTitle}>{result.title}</h1>
           <p className={styles.resultTagline}>{result.tagline}</p>
+          <ShareButton
+            className={styles.shareButton}
+            title={`나의 애착유형 결과: ${result.title}`}
+            text={`나는 ${result.title}! ${result.tagline} - 테스트할개에서 확인해보세요.`}
+          />
           <p className={styles.resultDescription}>{result.description}</p>
 
           <p className={styles.disclaimer}>

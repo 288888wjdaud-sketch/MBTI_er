@@ -43,8 +43,9 @@
 ## 이미지 에셋
 - `public/images/mbti/man/{code}.png`, `public/images/mbti/woman/{code}.png` — AI 생성 애니메이션풍
   캐릭터 일러스트 32장 (사용자가 직접 생성, 저작권 이슈 적음)
-- 원본 그리드 시트는 `public/eb9da986-....png`(첫 배치, 남녀 안 나뉨) 및 `public/images/mbti/all/`에 백업으로 남아있음
 - 파일명/폴더명 전부 소문자로 통일(Windows는 대소문자 구분 안 하지만 Vercel 배포 시 깨질 수 있어서 정리함)
+- 원본 그리드 시트(`public/eb9da986-....png`, `public/images/mbti/all/`)와 create-next-app 기본 SVG는
+  5주차에 삭제함 — 코드 어디서도 참조 안 되는 걸 확인한 뒤 정리 (아래 5주차 항목 참고)
 
 ## 컴포넌트
 - `ResultView` — 궁합 4섹션 렌더링, `PAYWALL_ENABLED` 참조
@@ -57,9 +58,16 @@
   감정심리)를 열고, 항목 선택 시 `/?category=xxx`로 이동. 중앙 워드마크는 `SiteHeaderLogo`로 분리해둬서
   로고 이미지 받으면 그 파일 내부만 `<Image>`로 교체하면 됨(`SiteHeader.js` 자체는 안 건드려도 됨).
 - `SiteFooter`(server, `layout.js`에서 전 페이지 공통 렌더링) — 사이트명+저작권, "전체 테스트 보기" 링크만 최소로.
+- `ShareButton`(client, 5주차 신규) — Web Share API 우선, 미지원 시 URL 클립보드 복사 폴백. 궁합 결과와
+  4개 신규 테스트 결과 화면에서 공용으로 사용.
 
-## 디자인 현황 (다음 세션에서 다듬을 부분)
-- 시스템 폰트, 포인트 컬러 `#2f6fed`, 라이트/다크모드는 `prefers-color-scheme`만 대응 (수동 토글 없음)
+## 디자인 현황
+- 시스템 폰트, 라이트/다크모드는 `prefers-color-scheme`만 대응 (수동 토글 없음)
+- 컬러는 전부 `globals.css`의 CSS 변수로 토큰화됨(5주차) — 팔레트 조정은 이제 `globals.css` 값만 바꾸면 전체
+  반영됨. 토큰 목록: `--color-primary(-hover/-disabled)`, `--color-accent`, `--color-category-personality`,
+  `--color-category-emotion`, `--color-on-brand`, `--color-primary-soft`, `--color-text-secondary/muted/
+  subtle/faint`, `--color-border(-input)`, `--color-surface`
+- 모션: 궁합 점수 카운트업, 홈 카드 stagger fade-in, 카드 hover 일관 적용, `prefers-reduced-motion` 전부 대응(5주차)
 - 모바일 퍼스트, 최대 폭 420~480px 단일 컬럼
 - 디자인 시스템/컴포넌트 라이브러리 없음 — 지금까지는 기능 검증 위주로 최소한의 스타일만 입힘
 - 이 부분이 아마 기획/디자인 담당 세션이 가장 크게 손댈 영역
@@ -210,17 +218,83 @@
   전부 헤더·푸터 부착 확인, 드로어 열기 → 카테고리 선택 → 홈 필터 반영까지 실제 확인, 콘솔 에러 없음,
   모바일 뷰포트 스크린샷 확인.
 
+**4.5주차 사장님 검토 승인 완료 (2026-07-11)** — 공통 헤더/푸터 레이아웃 확정.
+
+## 배포 보류 결정 (2026-07-11)
+- 사장님이 공개 오픈 + Vercel 실제 연결을 의도적으로 미루기로 함 — 디자인 마감/공유 기능 등 Phase 2 남은
+  보강 작업을 먼저 끝낸 뒤 재논의하기로 함. 이 라운드(5주차)는 배포 없이 로컬 빌드 검증까지만 진행.
+
+## 5주차 작업 (2026-07-11) — 배포는 이번 라운드 제외
+
+Spec.md 확인 결과 사장님이 공개 오픈/Vercel 연결을 의도적으로 보류하기로 해서, 이번 라운드는 Phase 2 남은
+디자인/콘텐츠 보강만 진행하고 배포는 하지 않았다(로컬 build 검증까지만).
+
+**① 컬러 CSS 변수 토큰화**
+- `globals.css`에 브랜드 컬러(`--color-primary`, `--color-primary-hover`, `--color-primary-disabled`,
+  `--color-accent`, `--color-category-personality`, `--color-category-emotion`, `--color-on-brand`)와
+  텍스트/보더/서피스 톤(`--color-text-secondary/muted/subtle/faint`, `--color-border`, `--color-border-input`,
+  `--color-surface`, `--color-primary-soft`) 선언. 라이트/다크 값은 기존 다크모드 미디어쿼리 안에서 자동 스위칭.
+- 전체 CSS 모듈(14개 파일)을 그렙해서 하드코딩된 색상값(`#2f6fed`, `#666`, `#eaeaea`, `#ddd`, `#111` 등)을
+  전부 토큰 참조로 교체 — `grep -rn "#[0-9a-f]\{3,6\}" --include="*.css" src`로 `globals.css` 외 잔여 0건 확인.
+- rgba 틴트(`rgba(47,111,237,0.12)` 등)는 `color-mix(in srgb, var(--color-primary) 12%, transparent)`로 전환.
+- 부수 작업: Spec.md가 요구한 궁합 점수(`.score`) 스타일을 22px→32px, Accent 컬러로 조정(`ResultView.module.css`).
+
+**② 모션/애니메이션**
+- 궁합 점수 카운트업: `ResultView.js`에 `useCountUp` 훅 추가, `requestAnimationFrame`으로 0→최종점수 600ms
+  애니메이션. `prefers-reduced-motion: reduce`면 duration 0으로 즉시 최종값 표시(효과 자체는 끄되 setState는
+  effect 콜백 안에서 비동기로 호출해 `react-hooks/set-state-in-effect` 린트 규칙도 만족시킴).
+- 홈 카드 그리드 stagger fade-in: `page.module.css`에 `cardFadeInUp` keyframe 추가, `HomeClient.js`에서
+  카드 index 기준 `animationDelay: index * 40ms`로 순차 등장. 카테고리 필터 변경 시 카드가 리마운트되며
+  다시 재생되도록 `key={`${category}-${test.slug}`}`로 구성.
+  reduced-motion에서는 `animation: none` 처리.
+- 카드 hover 효과를 홈 카드/궁합 결과 섹션 카드/`/mbti` 유형 카드까지 동일한 톤(`translateY(-2px)` +
+  옅은 그림자)으로 일관 확장, `@media (hover: hover)`로 터치 기기에서 항상-hover 상태 방지.
+- 기존 토글류(`categoryTab`, `genderButton`)의 `transition: background 0.15s`는 유지하고 모든 페이지에
+  일관 적용(이미 패턴이 있어서 추가 작업 없이 확인만).
+- 모든 신규 transition/animation에 `@media (prefers-reduced-motion: reduce)` 대응 완료.
+
+**③ 홈 화면 SEO 소개 문단**
+- `HomeClient.js`의 소개 섹션을 2문단 → 4문단으로 확장. 3번째 문단은 `compatibilityContent.js`의
+  `DIMENSIONS`(E/I, S/N, T/F, J/P) 개념을 "MBTI 궁합은 네 가지 기준으로 비교해요"로 풀어써서 재활용,
+  4번째 문단은 HSP/애착유형 등 학술 척도 기반 테스트의 자가진단 안내를 일반화. 장문의 벽이 되지 않도록
+  4문단 선에서 마무리.
+
+**④ 공유 기능 (Spec.md Phase 2 "2. 바이럴 공유 기능", 이번 라운드 최우선)**
+- `src/components/ShareButton.js` 신규 — Web Share API 우선 사용(`navigator.share`), 미지원 시
+  `navigator.clipboard.writeText`로 URL 복사 폴백 + "링크 복사됨!" 텍스트 2초간 표시. 카카오 SDK는 계획대로
+  Phase 3로 유지(Spec.md 명시).
+- `ResultView.js`(궁합 결과) + 4개 신규 테스트 결과 화면(테토-에겐/HSP/애착유형/감다살)에 공유 버튼 배치,
+  결과별로 제목/설명 텍스트 자동 생성.
+- `/mbti/match/[pair]`의 `generateMetadata`에 `openGraph: { title, description, type: "website" }` 추가,
+  4개 신규 테스트의 `page.js` metadata에도 동일하게 추가.
+- `src/app/mbti/match/[pair]/opengraph-image.js` 신규 — `next/og`의 `ImageResponse`로 136개 조합 x 2 성별
+  = 272장을 사전 렌더링하는 대신 요청 시 동적으로 1200x630 카드 이미지 생성(유형 코드/닉네임/궁합 점수 표시).
+  실제로 `/mbti/match/estj-infp/opengraph-image`를 fetch해서 PNG(37KB, 200 OK) 응답 확인함.
+- `layout.js` metadata에 `metadataBase`(`NEXT_PUBLIC_SITE_URL` 기준) 추가 — 없으면 Next가 og:image 절대
+  URL을 `localhost:3000` 기준으로 만들어버리는 빌드 경고가 있어서 함께 고침.
+- 브라우저로 궁합 결과 + 4개 테스트 결과 화면 전부 공유 버튼 노출 확인, `og:image` 메타 태그 생성 확인,
+  콘솔 에러 없음. (프리뷰 환경 자체의 클립보드 권한 제한으로 실제 복사까지는 확인 못 했지만, 실패 원인이
+  코드가 아니라 샌드박스 권한이라는 것까지는 `navigator.clipboard.writeText` 직접 호출로 확인함.)
+
+**⑤ 저장소 정리**
+- 삭제: `public/eb9da986-....png`(2.5MB, 원본 그리드), `public/images/mbti/all/`(5.3MB, 백업용 그리드
+  2장), create-next-app 기본 SVG 5개(`next.svg`, `globe.svg`, `file.svg`, `window.svg`, `vercel.svg`) —
+  전부 코드에서 참조 없음을 그렙으로 확인 후 삭제. `scripts/crop-mbti-grid.py`는 배포 결과물에 포함되지
+  않는 개발용 스크립트라 그대로 둠.
+
+**모든 항목 lint/build 통과, 배포는 진행하지 않음(사장님 지시).**
+
 ## 아직 안 한 것 / 다음 세션 TODO
-- Vercel 실제 연동 (위 가이드대로 사용자가 진행), 연결 시 커스텀 도메인 `willtest.kr` 등록
+- Vercel 실제 연동 — 사장님이 재논의 후 진행 시점 결정 예정. 연결 시 커스텀 도메인 `willtest.kr` 등록,
+  `NEXT_PUBLIC_SITE_URL`도 `https://willtest.kr`로 교체
 - GA4 측정 ID 발급 후 Vercel 환경변수에 등록
 - 애드센스 승인 후 `NEXT_PUBLIC_ADSENSE_CLIENT_ID` 등록 + 각 `AdSlot` 호출부에 실제 `slot` ID 추가 필요
 - 결제(토스페이먼츠/포트원) 미연동 — 버튼 누르면 alert만 뜸
 - **문항 카피 검토 대기**: 테토-에겐 q1~q12(초안) — 확정 필요
 - 로고(시바견) 파일 전달받으면 `SiteHeaderLogo.js`와 파비콘에 삽입 진행 — 그 전까지 헤더는 텍스트 워드마크만
-- `NEXT_PUBLIC_SITE_URL`을 `https://willtest.kr`로 교체 — Vercel 커스텀 도메인 연결 시점에 진행
-- 테스트 카드 썸네일(현재 이모지+색상 placeholder)을 실제 디자인 에셋으로 교체할지는 5주차 디자인 마감 때 논의
-- `public/eb9da986-....png`(원본 그리드, 2.5MB) 등 배포에 불필요한 파일 정리 검토 (Spec.md Phase 1-5)
-- 5주차 예정: 디자인 마감(컬러 토큰, 모션), 공유 기능(OG), 최종 점검 → 공개 오픈 + 애드센스 신청 (Spec.md 참고)
+- 테스트 카드 썸네일(현재 이모지+색상 placeholder)을 실제 디자인 에셋으로 교체할지는 다음 디자인 라운드에서 논의
+- 카카오 공유 SDK 고급 커스터마이징은 Phase 3(트래픽 확인 후)로 계획대로 유지
+- 다음 라운드: 사장님과 배포 여부 재논의 → 배포 진행 시 위 Vercel/GA4/애드센스 항목부터 처리
 
 ## 작업 방식 관련 참고 (`ROLE.md` 참고)
 - 사용자는 애매한 부분 있으면 최대한 많이 물어봐주길 원함 (질문 개수 제한 없음)

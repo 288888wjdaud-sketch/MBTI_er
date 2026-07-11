@@ -15,11 +15,11 @@
 
 .backLink {
   font-size: 13px;
-  color: #888;
+  color: var(--color-text-subtle);
 }
 
 .related {
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid var(--color-border);
   padding-top: 16px;
 }
 
@@ -36,12 +36,6 @@
 }
 
 .relatedLinks a {
-  color: #2f6fed;
+  color: var(--color-primary);
   text-decoration: underline;
-}
-
-@media (prefers-color-scheme: dark) {
-  .related {
-    border-color: #2a2a2a;
-  }
 }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { runTest, isComplete } from "@/lib/testEngine";
 import { HSP_QUESTIONS } from "@/data/tests/hsp/questions";
 import { HSP_AXES, HSP_RESULTS } from "@/data/tests/hsp/results";
+import ShareButton from "@/components/ShareButton";
 import styles from "./HspQuiz.module.css";
 
 export default function HspQuiz() {
@@ -49,6 +50,11 @@ export default function HspQuiz() {
           <p className={styles.resultLabel}>테스트 결과</p>
           <h1 className={styles.resultTitle}>{result.title}</h1>
           <p className={styles.resultTagline}>{result.tagline}</p>
+          <ShareButton
+            className={styles.shareButton}
+            title={`나의 HSP 민감형 결과: ${result.title}`}
+            text={`나는 ${result.title}! ${result.tagline} - 테스트할개에서 확인해보세요.`}
+          />
           <p className={styles.resultDescription}>{result.description}</p>
 
           <p className={styles.disclaimer}>
