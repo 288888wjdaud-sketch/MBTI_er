@@ -1,4 +1,4 @@
-// [초안 — 확정 아님] 성인 애착유형 결과 콘텐츠. 사장님 검토 전까지 최종본 아님.
+// [초안 — 확정 아님] 애착유형 결과 콘텐츠. 사장님 검토 전까지 최종본 아님.
 
 export const ATTACHMENT_AXES = [
   { key: "anxiety", poleA: "anxious", poleB: "calm" },

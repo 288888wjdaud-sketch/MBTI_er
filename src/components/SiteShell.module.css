@@ -1,0 +1,37 @@
+.shell {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (min-width: 960px) {
+  .shellPattern {
+    position: relative;
+  }
+
+  .shellPattern::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(
+        circle at 15% 20%,
+        color-mix(in srgb, var(--color-primary) 10%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at 85% 75%,
+        color-mix(in srgb, var(--color-accent) 8%, transparent),
+        transparent 55%
+      );
+  }
+}

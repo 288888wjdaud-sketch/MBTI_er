@@ -1,7 +1,7 @@
 import HspQuiz from "./HspQuiz";
 
 const title = "HSP 자애/타애 민감형 테스트 - 테스트할개";
-const description = "8문항으로 알아보는 나의 예민도와 민감 방향 테스트";
+const description = "20문항으로 알아보는 나의 예민도와 민감 방향 테스트";
 
 export const metadata = {
   title,

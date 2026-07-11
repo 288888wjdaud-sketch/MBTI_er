@@ -1,0 +1,68 @@
+.rail {
+  display: none;
+}
+
+@media (min-width: 960px) {
+  .rail {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 180px;
+    flex-shrink: 0;
+    padding-top: 8px;
+  }
+}
+
+.heading {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-faint);
+  margin-bottom: 2px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.thumbnail {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+.thumbnailImage {
+  object-fit: cover;
+}
+
+.emoji {
+  font-size: 28px;
+}
+
+.title {
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}

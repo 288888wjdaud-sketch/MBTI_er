@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SiteShell from "@/components/SiteShell";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,7 +27,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <SiteHeader />
-        {children}
+        <SiteShell>{children}</SiteShell>
         <SiteFooter />
         <GoogleAnalytics />
       </body>
