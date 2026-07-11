@@ -1,20 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { runTest, isComplete } from "@/lib/testEngine";
 import { TETO_EGEN_QUESTIONS } from "@/data/tests/teto-egen/questions";
 import { TETO_EGEN_AXES, TETO_EGEN_RESULTS } from "@/data/tests/teto-egen/results";
 import ShareButton from "@/components/ShareButton";
+import RelatedTests from "@/components/RelatedTests";
 import styles from "./TetoEgenQuiz.module.css";
 
 export default function TetoEgenQuiz() {
   const [answers, setAnswers] = useState([]);
   const [step, setStep] = useState(0);
   const [result, setResult] = useState(null);
+  const questionRef = useRef(null);
 
   const totalQuestions = TETO_EGEN_QUESTIONS.length;
   const currentQuestion = TETO_EGEN_QUESTIONS[step];
+
+  // 문항이 바뀔 때마다 새 문항 제목으로 포커스를 옮겨서, 키보드/스크린리더 사용자도
+  // 진행 상황(몇 번째 문항인지)을 놓치지 않도록 한다 (Spec.md 2.5.9② 참고).
+  useEffect(() => {
+    if (!result) questionRef.current?.focus();
+  }, [step, result]);
 
   function selectOption(optionIndex) {
     const nextAnswers = [...answers];
@@ -79,6 +87,8 @@ export default function TetoEgenQuiz() {
             이 테스트는 재미로 즐기는 콘텐츠이며 과학적 검증을 거친 심리 분석이 아닙니다.
           </p>
 
+          <RelatedTests excludeSlug="teto-egen" />
+
           <div className={styles.actions}>
             <button type="button" className={styles.restartButton} onClick={restart}>
               다시 하기
@@ -98,7 +108,9 @@ export default function TetoEgenQuiz() {
         <p className={styles.progress}>
           {step + 1} / {totalQuestions}
         </p>
-        <h1 className={styles.question}>{currentQuestion.text}</h1>
+        <h1 ref={questionRef} tabIndex={-1} className={styles.question}>
+          {currentQuestion.text}
+        </h1>
 
         <div className={styles.options}>
           {currentQuestion.options.map((option, index) => (

@@ -24,7 +24,7 @@ export default function HomeClient() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <p className={styles.subtitle}>MBTI부터 감정심리까지, 나를 알아가는 테스트 모음</p>
+        <h1 className={styles.subtitle}>MBTI부터 감정심리까지, 나를 알아가는 테스트 모음</h1>
 
         <section className={styles.intro}>
           <p>

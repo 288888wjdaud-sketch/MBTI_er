@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { calculateScores, resolveResultKey, isComplete } from "@/lib/testEngine";
@@ -8,6 +8,7 @@ import { MBTI_QUIZ_QUESTIONS } from "@/data/tests/mbti-quiz/questions";
 import { MBTI_QUIZ_AXES, resultKeyToMbtiCode } from "@/data/tests/mbti-quiz/axes";
 import { MBTI_TYPES, getNickname } from "@/data/mbtiTypes";
 import { toPairSlug } from "@/lib/mbtiSlug";
+import RelatedTests from "@/components/RelatedTests";
 import styles from "./MbtiQuizClient.module.css";
 
 function opposite(gender) {
@@ -23,9 +24,14 @@ export default function MbtiQuizClient() {
   const [partnerCode, setPartnerCode] = useState("");
   const [myGender, setMyGender] = useState("man");
   const [partnerGender, setPartnerGender] = useState("woman");
+  const questionRef = useRef(null);
 
   const totalQuestions = MBTI_QUIZ_QUESTIONS.length;
   const currentQuestion = MBTI_QUIZ_QUESTIONS[step];
+
+  useEffect(() => {
+    if (!myCode) questionRef.current?.focus();
+  }, [step, myCode]);
 
   function selectOption(optionIndex) {
     const nextAnswers = [...answers];
@@ -145,6 +151,8 @@ export default function MbtiQuizClient() {
             </form>
           </div>
 
+          <RelatedTests excludeSlug="mbti-match" />
+
           <button type="button" className={styles.restartButton} onClick={restart}>
             다시 검사하기
           </button>
@@ -159,7 +167,9 @@ export default function MbtiQuizClient() {
         <p className={styles.progress}>
           {step + 1} / {totalQuestions}
         </p>
-        <h1 className={styles.question}>{currentQuestion.text}</h1>
+        <h1 ref={questionRef} tabIndex={-1} className={styles.question}>
+          {currentQuestion.text}
+        </h1>
 
         <div className={styles.options}>
           {currentQuestion.options.map((option, index) => (

@@ -1,20 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { runTest, isComplete } from "@/lib/testEngine";
 import { HSP_QUESTIONS } from "@/data/tests/hsp/questions";
 import { HSP_AXES, HSP_RESULTS } from "@/data/tests/hsp/results";
 import ShareButton from "@/components/ShareButton";
+import RelatedTests from "@/components/RelatedTests";
 import styles from "./HspQuiz.module.css";
 
 export default function HspQuiz() {
   const [answers, setAnswers] = useState([]);
   const [step, setStep] = useState(0);
   const [result, setResult] = useState(null);
+  const questionRef = useRef(null);
 
   const totalQuestions = HSP_QUESTIONS.length;
   const currentQuestion = HSP_QUESTIONS[step];
+
+  useEffect(() => {
+    if (!result) questionRef.current?.focus();
+  }, [step, result]);
 
   function selectOption(optionIndex) {
     const nextAnswers = [...answers];
@@ -61,6 +67,8 @@ export default function HspQuiz() {
             이 테스트는 재미로 즐기는 자가진단이며 전문 심리검사를 대체하지 않습니다.
           </p>
 
+          <RelatedTests excludeSlug="hsp" />
+
           <div className={styles.actions}>
             <button type="button" className={styles.restartButton} onClick={restart}>
               다시 하기
@@ -80,7 +88,9 @@ export default function HspQuiz() {
         <p className={styles.progress}>
           {step + 1} / {totalQuestions}
         </p>
-        <h1 className={styles.question}>{currentQuestion.text}</h1>
+        <h1 ref={questionRef} tabIndex={-1} className={styles.question}>
+          {currentQuestion.text}
+        </h1>
 
         <div className={styles.options}>
           {currentQuestion.options.map((option, index) => (

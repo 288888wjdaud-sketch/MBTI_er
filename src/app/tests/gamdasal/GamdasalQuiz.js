@@ -1,21 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { calculateScores, resolveResultKey, getResult, isComplete } from "@/lib/testEngine";
 import { GAMDASAL_QUESTIONS } from "@/data/tests/gamdasal/questions";
 import { GAMDASAL_AXES, GAMDASAL_RESULTS } from "@/data/tests/gamdasal/results";
 import { getDailyBias } from "@/data/tests/gamdasal/dailyBias";
 import ShareButton from "@/components/ShareButton";
+import RelatedTests from "@/components/RelatedTests";
 import styles from "./GamdasalQuiz.module.css";
 
 export default function GamdasalQuiz() {
   const [answers, setAnswers] = useState([]);
   const [step, setStep] = useState(0);
   const [result, setResult] = useState(null);
+  const questionRef = useRef(null);
 
   const totalQuestions = GAMDASAL_QUESTIONS.length;
   const currentQuestion = GAMDASAL_QUESTIONS[step];
+
+  useEffect(() => {
+    if (!result) questionRef.current?.focus();
+  }, [step, result]);
 
   function selectOption(optionIndex) {
     const nextAnswers = [...answers];
@@ -61,6 +67,8 @@ export default function GamdasalQuiz() {
             매일 결과가 조금씩 달라질 수 있어요. 내일 다시 체크해보세요.
           </p>
 
+          <RelatedTests excludeSlug="gamdasal" />
+
           <div className={styles.actions}>
             <button type="button" className={styles.restartButton} onClick={restart}>
               다시 하기
@@ -80,7 +88,9 @@ export default function GamdasalQuiz() {
         <p className={styles.progress}>
           {step + 1} / {totalQuestions}
         </p>
-        <h1 className={styles.question}>{currentQuestion.text}</h1>
+        <h1 ref={questionRef} tabIndex={-1} className={styles.question}>
+          {currentQuestion.text}
+        </h1>
 
         <div className={styles.options}>
           {currentQuestion.options.map((option, index) => (
