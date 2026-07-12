@@ -89,4 +89,14 @@ export const TEST_CATALOG = [
     href: "/tests/slang-trend",
     isNew: true,
   },
+  {
+    slug: "couple-sync",
+    title: "커플 싱크로율 테스트",
+    description: "링크로 상대방과 비교하는 우리 둘의 라이프스타일 싱크로율",
+    time: "3분(상대방과 함께)",
+    category: "emotion",
+    emoji: "💞",
+    href: "/tests/couple-sync",
+    isNew: true,
+  },
 ];

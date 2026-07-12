@@ -1,0 +1,183 @@
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 48px 20px 80px;
+  min-height: 100vh;
+}
+
+.main {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.progress {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.question {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+.options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.optionButton {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border-input);
+  background: var(--color-surface);
+  font-size: 15px;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.optionButton:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.resultLabel {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.resultTitle {
+  font-size: 32px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.resultTagline {
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.shareButton {
+  margin-top: 14px;
+}
+
+.resultDescription {
+  margin-top: 16px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.linkBox {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--color-primary-soft);
+  font-size: 13px;
+  word-break: break-all;
+  text-align: left;
+}
+
+.compareList {
+  width: 100%;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.compareItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-size: 13px;
+  text-align: left;
+}
+
+.compareText {
+  font-weight: 600;
+}
+
+.comparePicks {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.matchYes {
+  color: var(--color-primary);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.matchNo {
+  color: var(--color-accent);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.restartButton {
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  background: var(--color-primary);
+  color: var(--color-on-brand);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.restartButton:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.homeLink {
+  padding: 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-input);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .optionButton,
+  .restartButton {
+    transition: none;
+  }
+
+  .optionButton:hover,
+  .restartButton:hover {
+    transform: none;
+  }
+}
